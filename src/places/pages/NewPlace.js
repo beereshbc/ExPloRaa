@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "../../shared/components/FormElements/Input";
 import "./NewPlace.css";
+import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 
 const NewPlace = () => {
   return (
@@ -9,7 +10,7 @@ const NewPlace = () => {
         lable="Title"
         type="text"
         element="input"
-        validators={[]}
+        validators={[VALIDATOR_REQUIRE()]}
         errorText="Enter a valid Title"
       />
     </form>
