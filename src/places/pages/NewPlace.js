@@ -1,6 +1,6 @@
 import React, { useCallback, useReducer } from "react";
 import Input from "../../shared/components/FormElements/Input";
-import "./NewPlace.css";
+import "./PlaceForm.css";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
