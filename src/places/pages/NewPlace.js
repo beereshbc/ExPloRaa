@@ -58,8 +58,14 @@ const NewPlace = () => {
     },
     [dispatch]
   );
+
+  const placeSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
       <Input
         id="title"
         lable="Title"
@@ -76,6 +82,15 @@ const NewPlace = () => {
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Enter Atleast 5 Words to continue"
         onInput={inputHandler}
+      />
+      <Input
+        id="address"
+        lable="address"
+        type="text"
+        element="input"
+        validators={[VALIDATOR_REQUIRE()]}
+        onInput={inputHandler}
+        errorText="Enter a valid Address"
       />
       <Button type="submit" disabled={!formState.isValid}>
         Add Place
