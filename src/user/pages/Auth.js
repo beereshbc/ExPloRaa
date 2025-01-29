@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Auth.css";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
@@ -7,10 +7,13 @@ import Button from "../../shared/components/FormElements/Button";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 
 const Auth = () => {
-  const [formState, inputHandler] = useForm(
+  const [isLogin, setIsLogin] = useState(true);
+
+  const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
         value: "",
@@ -25,16 +28,51 @@ const Auth = () => {
   );
 
   const authSubmitHandler = (event) => {
+    if (!isLogin) {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: undefined,
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            valaue: "",
+            isValid: false,
+          },
+        },
+        false
+      );
+    }
     event.preventDefault();
     console.log(formState.inputs);
+  };
+
+  const switchModeHandler = () => {
+    setIsLogin((prevMode) => !prevMode);
   };
 
   return (
     <div className="authentication">
       <Card>
-        <h2>Login Required..</h2>
+        <h2>{isLogin ? "Login" : "Sign-Up"} Required..</h2>
         <hr />
         <form onSubmit={authSubmitHandler}>
+          {!isLogin && (
+            <Input
+              id="name"
+              element="input"
+              type="text"
+              label="Name"
+              onInput={inputHandler}
+              errorText="Enter Valid Name"
+              validators={[VALIDATOR_REQUIRE()]}
+            />
+          )}
           <Input
             id="email"
             element="input"
@@ -54,9 +92,12 @@ const Auth = () => {
             validators={[VALIDATOR_MINLENGTH(8)]}
           />
           <Button type="submit" inverse disabled={!formState.isValid}>
-            Login
+            {isLogin ? "Login" : "Sign-Up"}
           </Button>
         </form>
+        <Button inverse onClick={switchModeHandler}>
+          Switch to {isLogin ? "Sign-Up" : "Login"}
+        </Button>
       </Card>
     </div>
   );
