@@ -18,7 +18,7 @@ const NavLinks = (props) => {
         <NavLink to="/places/new">Add Places</NavLink>
       </li>
       <li>
-        <NavLink to="/auth/">Login</NavLink>
+        <NavLink to="/auth">Login</NavLink>
       </li>
     </ul>
   );
