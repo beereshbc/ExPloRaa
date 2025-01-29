@@ -11,7 +11,9 @@ const PlaceList = (props) => {
       <li className="place-list center">
         <Card>
           <h2>Places Not Found!</h2>
-          <Button inverse>Share your places</Button>
+          <Button inverse to="/places/new">
+            Share your places
+          </Button>
         </Card>
       </li>
     );
